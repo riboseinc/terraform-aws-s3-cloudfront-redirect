@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "redirect" {
+resource "aws_s3_bucket" "main" {
   provider = "aws.main"
   bucket   = "${var.fqdn}"
   acl      = "private"
