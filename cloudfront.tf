@@ -19,7 +19,7 @@ resource "aws_cloudfront_distribution" "main" {
     domain_name = "${var.fqdn}.s3-website-${data.aws_region.main.name}.amazonaws.com"
 
     custom_origin_config {
-      origin_protocol_policy = "http-only"
+      origin_protocol_policy = "match-viewer"
       http_port = "80"
       https_port = "443"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
@@ -61,7 +61,7 @@ resource "aws_cloudfront_distribution" "main" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
     min_ttl                = 0
     default_ttl            = 300
     max_ttl                = 1200
