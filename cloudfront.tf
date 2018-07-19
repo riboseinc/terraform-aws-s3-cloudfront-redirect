@@ -42,8 +42,7 @@ resource "aws_cloudfront_distribution" "main" {
 
   enabled = true
 
-  # This index.html is necessary to enable the redirect?
-  default_root_object = "index.html"
+  aliases = ["${var.fqdn}"]
 
   price_class = "PriceClass_100"
 
