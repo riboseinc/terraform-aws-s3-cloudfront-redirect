@@ -42,6 +42,9 @@ resource "aws_cloudfront_distribution" "main" {
 
   enabled = true
 
+  # This index.html is necessary to enable the redirect?
+  default_root_object = "index.html"
+
   price_class = "PriceClass_100"
 
   default_cache_behavior {
