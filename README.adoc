@@ -6,7 +6,7 @@ This module helps you create a S3 website, assuming that:
 * its domain is backed by a Route53 zone
 * and of course, your AWS account provides you access to all these resources necessary.
 
-This module is available on the https://registry.terraform.io/modules/riboseinc/s3-cloudfront-website/aws/[Terraform Registry].
+This module is available on the https://registry.terraform.io/modules/riboseinc/s3-cloudfront-redirect/aws/[Terraform Registry].
 
 This module is a pair with
 https://github.com/riboseinc/terraform-aws-s3-cloudfront-website[terraform-aws-s3-cloudfront-website],
