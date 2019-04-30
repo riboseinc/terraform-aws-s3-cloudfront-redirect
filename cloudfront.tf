@@ -11,7 +11,8 @@ resource "aws_cloudfront_distribution" "main" {
     origin_id   = "origin-${var.fqdn}"
     domain_name = "${aws_s3_bucket.main.website_endpoint}"
 
-    # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html
+    # https://docs.aws.amazon.com/AmazonCloudFront/latest/
+    # DeveloperGuide/distribution-web-values-specify.html
     custom_origin_config {
       # "HTTP Only: CloudFront uses only HTTP to access the origin."
       # "Important: If your origin is an Amazon S3 bucket configured
@@ -19,9 +20,8 @@ resource "aws_cloudfront_distribution" "main" {
       # doesn't support HTTPS connections for website endpoints."
       origin_protocol_policy = "http-only"
 
-      # These are already set by default.
-      # http_port = "80"
-      # https_port = "443"
+      http_port = "80"
+      https_port = "443"
 
       # TODO: given the origin_protocol_policy set to `http-only`,
       # not sure what this does...
