@@ -55,9 +55,9 @@ module "main" {
   refer_secret = "${base64sha512("REFER-SECRET-19265125-${var.fqdn}-52865926")}"
   force_destroy = "true"
 
-  providers {
-    "aws.main" = "aws.main"
-    "aws.cloudfront" = "aws.cloudfront"
+  providers = {
+    aws.main = aws.main
+    aws.cloudfront = aws.cloudfront
   }
 
   # Optional WAF Web ACL ID, defaults to none.
