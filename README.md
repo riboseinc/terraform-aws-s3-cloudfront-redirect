@@ -143,3 +143,16 @@ output "acm_certificate_arn" {
   value = "${aws_acm_certificate_validation.cert.certificate_arn}"
 }
 ```
+
+## Upgrading to Terraform 0.12
+
+This module now supports Terraform 0.12.
+
+To upgrade to Terraform 0.12 using this module, do this:
+
+```bash
+terraform init -upgrade
+terraform 0.12upgrade
+terraform plan
+terraform apply -auto-approve
+```
