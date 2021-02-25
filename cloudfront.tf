@@ -4,12 +4,12 @@
 # }
 
 resource "aws_cloudfront_distribution" "main" {
-  provider = "aws.cloudfront"
+  provider     = aws.cloudfront
   http_version = "http2"
 
   origin {
     origin_id   = "origin-${var.fqdn}"
-    domain_name = "${aws_s3_bucket.main.website_endpoint}"
+    domain_name = aws_s3_bucket.main.website_endpoint
 
     # https://docs.aws.amazon.com/AmazonCloudFront/latest/
     # DeveloperGuide/distribution-web-values-specify.html
@@ -20,13 +20,13 @@ resource "aws_cloudfront_distribution" "main" {
       # doesn't support HTTPS connections for website endpoints."
       origin_protocol_policy = "http-only"
 
-      http_port = "80"
+      http_port  = "80"
       https_port = "443"
 
       # TODO: given the origin_protocol_policy set to `http-only`,
       # not sure what this does...
       # "If the origin is an Amazon S3 bucket, CloudFront always uses TLSv1.2."
-      origin_ssl_protocols   = ["TLSv1.2"]
+      origin_ssl_protocols = ["TLSv1.2"]
     }
 
     # s3_origin_config is not compatible with S3 website hosting, if this
@@ -39,14 +39,13 @@ resource "aws_cloudfront_distribution" "main" {
     # Not the best, but...
     custom_header {
       name  = "User-Agent"
-      value = "${var.refer_secret}"
+      value = var.refer_secret
     }
-
   }
 
   enabled = true
 
-  aliases = ["${var.fqdn}"]
+  aliases = [var.fqdn]
 
   price_class = "PriceClass_100"
 
@@ -77,10 +76,11 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = "${var.ssl_certificate_arn}"
+    acm_certificate_arn      = var.ssl_certificate_arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
   }
 
-  web_acl_id = "${var.web_acl_id}"
+  web_acl_id = var.web_acl_id
 }
+
