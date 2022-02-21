@@ -1,12 +1,32 @@
+resource "aws_s3_bucket_policy" "main" {
+  bucket = aws_s3_bucket.main.id
+  policy = data.aws_iam_policy_document.bucket_policy.json
+}
+
+resource "aws_s3_bucket_acl" "main" {
+  bucket = aws_s3_bucket.main.id
+  acl    = "private"
+}
+
+
+resource "aws_s3_bucket_website_configuration" "main" {
+  bucket = aws_s3_bucket.main.id
+
+  redirect_all_requests_to {
+    host_name = var.redirect_target
+  }
+}
+
+
 resource "aws_s3_bucket" "main" {
   provider = aws.main
   bucket   = var.fqdn
-  acl      = "private"
-  policy   = data.aws_iam_policy_document.bucket_policy.json
+  #  acl      = "private"
+  #  policy   = data.aws_iam_policy_document.bucket_policy.json
 
-  website {
-    redirect_all_requests_to = var.redirect_target
-  }
+  #  website {
+  #    redirect_all_requests_to = var.redirect_target
+  #  }
 
   force_destroy = var.force_destroy
 
