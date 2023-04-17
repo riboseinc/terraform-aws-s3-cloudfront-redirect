@@ -17,6 +17,7 @@ which handles hosting of a static S3 website with CloudFront and ACM.
 You can literally copy and paste the following example, change the following attributes, and you're ready to go:
 
 * `fqdn` set to your static website's hostname
+* `alternative_names` any other hostnames that should also redirect to the same site (optional)
 * `redirect_target` set to where you want the hostname to redirect to (e.g. `example.com` => (this one) `www.example.com`)
 
 
@@ -39,6 +40,12 @@ variable "fqdn" {
   default     = "example.com"
 }
 
+variable "alternative_names" {
+  description = "Any alternative names that should also be redirected"
+  type        = list(string)
+  default     = []
+}
+
 variable "redirect_target" {
   description = "The fully-qualified domain name to redirect to."
   default     = "www.example.com"
@@ -48,15 +55,16 @@ variable "redirect_target" {
 module "main" {
   source = "github.com/riboseinc/terraform-aws-s3-cloudfront-redirect"
 
-  fqdn = "${var.fqdn}"
-  redirect_target = "${var.redirect_target}"
+  fqdn                = "${var.fqdn}"
+  redirect_target     = "${var.redirect_target}"
   ssl_certificate_arn = "${aws_acm_certificate_validation.cert.certificate_arn}"
+  alternative_names   = var.alternative_names
 
-  refer_secret = "${base64sha512("REFER-SECRET-19265125-${var.fqdn}-52865926")}"
+  refer_secretl = "${base64sha512("REFER-SECRET-19265125-${var.fqdn}-52865926")}"
   force_destroy = "true"
 
   providers = {
-    aws.main = aws.main
+    aws.main       = aws.main
     aws.cloudfront = aws.cloudfront
   }
 
@@ -67,9 +75,10 @@ module "main" {
 # ACM Certificate generation
 
 resource "aws_acm_certificate" "cert" {
-  provider          = "aws.cloudfront"
-  domain_name       = "${var.fqdn}"
-  validation_method = "DNS"
+  provider                  = "aws.cloudfront"
+  domain_name               = "${var.fqdn}"
+  validation_method         = "DNS"
+  subject_alternative_names = var.alternative_names
 }
 
 resource "aws_route53_record" "cert_validation" {
