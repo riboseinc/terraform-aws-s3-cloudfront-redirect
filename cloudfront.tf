@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "main" {
 
   enabled = true
 
-  aliases = [var.fqdn]
+  aliases = concat([var.fqdn], var.alternative_names)
 
   price_class = "PriceClass_100"
 

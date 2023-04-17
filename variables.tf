@@ -3,6 +3,12 @@ variable "fqdn" {
   description = "The FQDN of the website and also name of the S3 bucket"
 }
 
+variable "alternative_names" {
+  type        = list(string)
+  description = "A list of alternative names that should resolve to the CloudFront distribution"
+  default     = []
+}
+
 variable "redirect_target" {
   type        = string
   description = "The FQDN to redirect to"
