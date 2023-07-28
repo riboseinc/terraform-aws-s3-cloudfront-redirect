@@ -3,6 +3,10 @@ resource "aws_acm_certificate" "cert" {
   provider          = aws.cloudfront
   domain_name       = var.fqdn
   validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route53_record" "cert_validation" {
@@ -48,4 +52,3 @@ resource "aws_route53_record" "web" {
     evaluate_target_health = false
   }
 }
-

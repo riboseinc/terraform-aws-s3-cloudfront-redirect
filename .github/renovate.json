@@ -1,0 +1,10 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>SDA-SE/renovate-config:common#0.8.0",
+    "github>SDA-SE/renovate-config:commits#0.8.0",
+    "github>SDA-SE/renovate-config:force-grouping#0.8.0",
+    "github>SDA-SE/renovate-config:preset-bump#0.8.0"
+  ],
+  "dependencyDashboard": true
+}

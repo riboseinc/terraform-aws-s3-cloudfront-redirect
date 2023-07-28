@@ -1,0 +1,21 @@
+name: Check
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+on:
+  pull_request:
+    branches: [ "master", "main" ]
+
+permissions: read-all
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        if: github.event_name == 'pull_request'
+      - run: pip3 install checkov
+      - uses: pre-commit/action@v3.0.0
+        if: github.event_name == 'pull_request'

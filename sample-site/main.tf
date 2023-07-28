@@ -7,8 +7,7 @@ module "main" {
 
   providers = {
     aws.cloudfront = aws.cloudfront
-    aws.main = aws.main
+    aws.main       = aws.main
   }
 
 }
-

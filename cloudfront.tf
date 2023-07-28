@@ -4,6 +4,12 @@
 # }
 
 resource "aws_cloudfront_distribution" "main" {
+  #checkov:skip=CKV_AWS_34:"target will redirect to https anyway"
+  #checkov:skip=CKV_AWS_86:"Activate access logging later"
+  #checkov:skip=CKV_AWS_174:"Enforce tls 1.2 at target"
+  #checkov:skip=CKV_AWS_68:"Target has WAF"
+  #checkov:skip=CKV_AWS_310:"Origin Failover?"
+  #checkov:skip=CKV_AWS_305:"No need for default root object"
   provider     = aws.cloudfront
   http_version = "http2"
 
@@ -83,4 +89,3 @@ resource "aws_cloudfront_distribution" "main" {
 
   web_acl_id = var.web_acl_id
 }
-
