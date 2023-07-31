@@ -182,10 +182,12 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_cloudfront_distribution.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
+| [aws_cloudfront_origin_access_control.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) | resource |
 | [aws_s3_bucket.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_policy.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_website_configuration.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration) | resource |
+| [aws_s3_object.index_html](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 | [aws_iam_policy_document.bucket_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -193,12 +195,17 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cloudfront_default_root_object"></a> [cloudfront\_default\_root\_object](#input\_cloudfront\_default\_root\_object) | Default root object for cloudfront. Need to also provide custom error response if changing from default | `string` | `"index.html"` | no |
+| <a name="input_cloudfront_default_ttl"></a> [cloudfront\_default\_ttl](#input\_cloudfront\_default\_ttl) | The default TTL for the cloudfront cache | `number` | `86400` | no |
+| <a name="input_cloudfront_max_ttl"></a> [cloudfront\_max\_ttl](#input\_cloudfront\_max\_ttl) | The maximum TTL for the cloudfront cache | `number` | `31536000` | no |
+| <a name="input_cloudfront_min_ttl"></a> [cloudfront\_min\_ttl](#input\_cloudfront\_min\_ttl) | The minimum TTL for the cloudfront cache | `number` | `0` | no |
 | <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | The force\_destroy argument of the S3 bucket | `string` | `"false"` | no |
 | <a name="input_fqdn"></a> [fqdn](#input\_fqdn) | The FQDN of the website and also name of the S3 bucket | `string` | n/a | yes |
 | <a name="input_redirect_target"></a> [redirect\_target](#input\_redirect\_target) | The FQDN to redirect to | `string` | n/a | yes |
 | <a name="input_refer_secret"></a> [refer\_secret](#input\_refer\_secret) | A secret string to authenticate CF requests to S3 | `string` | `"345-VERY-SECRET-678"` | no |
 | <a name="input_ssl_certificate_arn"></a> [ssl\_certificate\_arn](#input\_ssl\_certificate\_arn) | ARN of the certificate covering var.fqdn | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags | `map(string)` | `{}` | no |
+| <a name="input_use_html_page_to_redirect"></a> [use\_html\_page\_to\_redirect](#input\_use\_html\_page\_to\_redirect) | Use an HTML page to redirect | `bool` | `false` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | WAF Web ACL ID to attach to the CloudFront distribution, optional | `string` | `""` | no |
 
 ## Outputs
